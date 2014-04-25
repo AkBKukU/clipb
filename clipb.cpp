@@ -12,6 +12,7 @@ std::string getInput ();
 
 /* Main
  *
+ * Parse arguments.
  */
 int main (int argc, char *argv[])
 {	
