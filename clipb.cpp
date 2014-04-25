@@ -57,13 +57,16 @@ std::string loadClip ()
 {
     std::ifstream fileIn;
     fileIn.open( "/tmp/clipb" , std::ifstream::in);
-    
-    
-	while (! fileIn.eof()){
-	    
-	   std::cout <<  (char)  fileIn.get();
+    std::string output = "";
 
+    if ( fileIn.good() )
+    {
+		while (! fileIn.eof()){
+		    
+		   output += (char)  fileIn.get() ;
+
+		}
 	}
-
-	return "hi";
+	fileIn.close();
+	return output.substr(0,output.length()-1);
 }
