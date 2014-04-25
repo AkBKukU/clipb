@@ -11,27 +11,35 @@ std::string loadClip ();
 
 int main (int argc, char *argv[])
 {	
-	std::cout << "args; " << argc << " is; " << argv[1];
-	if(argc > 1 && strcmp(argv[1] ,"-i") )
-	{	
-		// Capture passed input as cin
-		std::string temp;
-		std::string input;
-		// Parse multiple lines
-		while(std::cin)
-		{
-		    std::getline (std::cin,temp);
-		    input = input + "\n" + temp;
-		}
-		input = input.substr(1);
+for (int i = 1; i < argc; i++) { /* We will iterate over argv[] to get the parameters stored inside.
+                                      * Note that we're starting on 1 because we don't need to know the 
+                                      * path of the program, which is stored in argv[0] */
+        if (i < argc) // Check that we haven't finished parsing already
+        {
+            if (std::string(argv[i]) == "-i") 
+            {
+                // Capture passed input as cin
+				std::string temp;
+				std::string input;
+				// Parse multiple lines
+				while(std::cin)
+				{
+				    std::getline (std::cin,temp);
+				    input = input + "\n" + temp;
+				}
+				input = input.substr(1);
 
-		std::cout << input;
-		saveClip(input);
-	}
-	else
-	{
+				saveClip(input);
+            }
+    	}
+    }
+
+    if (argc == 1)
+    {
 		std::cout << loadClip();
-	}
+    }
+
+
 	return 0;
 }
 
@@ -44,8 +52,18 @@ void saveClip (std::string text)
 	outFile << text;
 }
 
+
 std::string loadClip ()
 {
+    std::ifstream fileIn;
+    fileIn.open( "/tmp/clipb" , std::ifstream::in);
+    
+    
+	while (! fileIn.eof()){
+	    
+	   std::cout <<  (char)  fileIn.get();
+
+	}
 
 	return "hi";
 }
